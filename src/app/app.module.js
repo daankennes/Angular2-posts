@@ -10,6 +10,8 @@ var platform_browser_1 = require("@angular/platform-browser");
 var router_1 = require("@angular/router");
 var http_1 = require("@angular/common/http");
 var post_list_component_1 = require("./post-list.component");
+var post_service_1 = require("./post.service");
+var app_component_1 = require("./app.component");
 var appRoutes = [
     { path: '**', component: post_list_component_1.PostListComponent }
 ];
@@ -22,9 +24,9 @@ AppModule = __decorate([
     core_1.NgModule({
         imports: [platform_browser_1.BrowserModule, http_1.HttpClientModule,
             router_1.RouterModule.forRoot(appRoutes)],
-        declarations: [],
-        providers: [],
-        bootstrap: []
+        declarations: [app_component_1.AppComponent, post_list_component_1.PostListComponent],
+        providers: [post_list_component_1.PostListComponent, post_service_1.PostService],
+        bootstrap: [app_component_1.AppComponent]
     })
 ], AppModule);
 exports.AppModule = AppModule;

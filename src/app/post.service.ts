@@ -7,6 +7,7 @@ import { Comment } from './comment';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/filter';
+import 'rxjs/add/operator/catch';
 
 //Verander NIETS aan de interface van PostService en PostListComponent
 
@@ -17,19 +18,11 @@ export class PostService {
 
    // get all posts
    getAllPosts(): Observable<Post[]> {
-
-    return this.http.get('http://jsonplaceholder.typicode.com/posts')
-                .map((res:Response) => res.json());
-                //.catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+    return this.http.get<Post[]>('http://jsonplaceholder.typicode.com/posts');
    }
 
    // get comments based on the index
    getCommentsForPost(index: number): Observable<Comment[]> {
-
-    return this.http.get('http://jsonplaceholder.typicode.com/comments')
-    .filter((comment: Comment) => comment.postId === 1)
-    .map((res: Response) => res.json() );
-    //.catch((error:any) => Observable.throw(error.json().error || 'Server error'));
-
+    return this.http.get<Comment[]>('https://jsonplaceholder.typicode.com/comments?postId=' + index);
    }
 }

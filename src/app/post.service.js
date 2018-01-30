@@ -13,6 +13,7 @@ var http_1 = require("@angular/common/http");
 require("rxjs/add/operator/map");
 require("rxjs/add/operator/toPromise");
 require("rxjs/add/operator/filter");
+require("rxjs/add/operator/catch");
 //Verander NIETS aan de interface van PostService en PostListComponent
 var PostService = (function () {
     function PostService(http) {
@@ -20,16 +21,11 @@ var PostService = (function () {
     }
     // get all posts
     PostService.prototype.getAllPosts = function () {
-        return this.http.get('http://jsonplaceholder.typicode.com/posts')
-            .map(function (res) { return res.json(); });
-        //.catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+        return this.http.get('http://jsonplaceholder.typicode.com/posts');
     };
     // get comments based on the index
     PostService.prototype.getCommentsForPost = function (index) {
-        return this.http.get('http://jsonplaceholder.typicode.com/comments')
-            .filter(function (comment) { return comment.postId === 1; })
-            .map(function (res) { return res.json(); });
-        //.catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+        return this.http.get('https://jsonplaceholder.typicode.com/comments?postId=' + index);
     };
     return PostService;
 }());

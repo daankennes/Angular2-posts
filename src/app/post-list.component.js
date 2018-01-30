@@ -19,10 +19,17 @@ var PostListComponent = (function () {
         this.posts = this.postService.getAllPosts();
     };
     PostListComponent.prototype.getComments = function (index) {
-        this.comments = this.postService.getCommentsForPost(index);
+        var _this = this;
+        //index + 1: note index starts at 1
+        this.comments = this.postService.getCommentsForPost(index + 1);
+        this.comments.subscribe(function (data) {
+            _this.printComments(data);
+        });
     };
     PostListComponent.prototype.printComments = function (comments) {
-        console.log(this.comments);
+        for (var y = 0; y < comments.length; y++) {
+            console.log(comments[y].name);
+        }
     };
     return PostListComponent;
 }());
